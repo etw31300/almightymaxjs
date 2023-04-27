@@ -1,0 +1,7 @@
+{
+  "standard.engine": "ts-standard",
+  "editor.tabSize": 2,
+  "editor.acceptSuggestionOnEnter": "on",
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.format.semicolons": "remove"
+}
