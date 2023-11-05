@@ -23,7 +23,7 @@
     "@discordjs/formatters": "^0.3.0",
     "@discordjs/proxy": "^2.0.0",
     "@discordjs/rest": "^2.0.0",
-    "@discordjs/util": "^0.3.0",
+    "@discordjs/util": "^1.0.0",
     "@discordjs/voice": "^0.16.0",
     "@discordjs/ws": "^0.8.0",
     "@nestjs/common": "^9.3.12",
