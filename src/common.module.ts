@@ -1,13 +1,13 @@
 import { Global, Module } from '@nestjs/common'
-import { loggerProvider } from './core/providers/logger.provider'
+import Logger from './core/providers/logger.provider'
 
 @Global()
 @Module({
   providers: [
-    loggerProvider
+    Logger
   ],
   exports: [
-    loggerProvider
+    Logger
   ]
 })
 export default class CommonModule {}

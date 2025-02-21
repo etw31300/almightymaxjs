@@ -1,8 +1,6 @@
-import { FactoryProvider, LoggerService, Scope } from '@nestjs/common'
-import { REQUEST } from '@nestjs/core'
+import { LoggerService } from '@nestjs/common'
 import bunyan from 'bunyan'
 import config from 'config'
-import { Request } from 'express'
 
 import LoggerConfig from '../../domain/config/LoggerConfig'
 
@@ -10,6 +8,9 @@ const appName = config.get<string>('appName')
 const { logLevel } = config.get<LoggerConfig>('logger')
 
 export default class Logger extends bunyan implements LoggerService {
+  public provide = Logger
+  public useClass = Logger
+
   constructor (options?: Omit<bunyan.LoggerOptions, 'name' | 'level'>) {
     super({
       name: appName,
@@ -19,17 +20,4 @@ export default class Logger extends bunyan implements LoggerService {
   }
 
   public log = this.info
-}
-
-export const loggerProvider: FactoryProvider<Logger> = {
-  provide: Logger,
-  scope: Scope.REQUEST,
-  inject: [REQUEST],
-  useFactory: (req: Request) => {
-    const logger = new Logger({
-      ...req.headers
-    })
-
-    return logger
-  }
 }
