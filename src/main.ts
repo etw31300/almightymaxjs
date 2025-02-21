@@ -4,10 +4,10 @@ import config from 'config'
 import express from 'express'
 
 import { AppModule } from './app.module'
-import { BunyanLogger } from './core/providers/logger.provider'
+import Logger from './core/providers/logger.provider'
 
 const basePath = config.get<string>('basePath')
-const logger = new BunyanLogger()
+const logger = new Logger()
 
 async function bootstrap (): Promise<void> {
   const server = express()

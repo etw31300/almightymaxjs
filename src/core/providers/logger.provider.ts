@@ -1,4 +1,4 @@
-import { FactoryProvider, LoggerService } from '@nestjs/common'
+import { FactoryProvider, LoggerService, Scope } from '@nestjs/common'
 import { REQUEST } from '@nestjs/core'
 import bunyan from 'bunyan'
 import config from 'config'
@@ -8,48 +8,27 @@ import LoggerConfig from 'src/domain/config/LoggerConfig'
 const appName = config.get<string>('appName')
 const { logLevel } = config.get<LoggerConfig>('logger')
 
-export class BunyanLogger implements LoggerService {
-  protected readonly logger: bunyan
-
-  constructor (options?: Omit<bunyan.LoggerOptions, 'name'>) {
-    this.logger = bunyan.createLogger({
+export default class Logger extends bunyan implements LoggerService {
+  constructor (options?: Omit<bunyan.LoggerOptions, 'name' | 'level'>) {
+    super({
       name: appName,
       level: logLevel,
       ...options
     })
   }
 
-  info (message: any, ...optionalParams: any[]): void {
-    this.logger.info(message, ...optionalParams)
-  }
-
-  log (message: any, ...optionalParams: any[]): void {
-    this.logger.info(message, ...optionalParams)
-  }
-
-  error (message: any, ...optionalParams: any[]): void {
-    this.logger.error(message, ...optionalParams)
-  }
-
-  warn (message: any, ...optionalParams: any[]): void {
-    this.logger.warn(message, ...optionalParams)
-  }
-
-  debug (message: any, ...optionalParams: any[]): void {
-    this.logger.debug(message, ...optionalParams)
-  }
+  public log = this.info
 }
 
-const loggerFactoryProvider: FactoryProvider<BunyanLogger> = {
-  provide: BunyanLogger,
+export const loggerProvider: FactoryProvider<Logger> = {
+  provide: Logger,
+  scope: Scope.REQUEST,
   inject: [REQUEST],
   useFactory: (req: Request) => {
-    const logger = new BunyanLogger({
+    const logger = new Logger({
       ...req.headers
     })
 
     return logger
   }
 }
-
-export default loggerFactoryProvider

@@ -1,13 +1,13 @@
 import { Global, Module } from '@nestjs/common'
-import bunyanLoggerProvider from './core/providers/logger.provider'
+import { loggerProvider } from './core/providers/logger.provider'
 
 @Global()
 @Module({
   providers: [
-    bunyanLoggerProvider
+    loggerProvider
   ],
   exports: [
-    bunyanLoggerProvider
+    loggerProvider
   ]
 })
 export default class CommonModule {}
