@@ -1,5 +1,6 @@
 import { LoggerService } from '@nestjs/common'
 import BunyanLogger from 'bunyan'
+
 import Logger from './logger.provider'
 
 describe('logger.provider', () => {

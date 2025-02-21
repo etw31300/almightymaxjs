@@ -3,7 +3,8 @@ import { REQUEST } from '@nestjs/core'
 import bunyan from 'bunyan'
 import config from 'config'
 import { Request } from 'express'
-import LoggerConfig from 'src/domain/config/LoggerConfig'
+
+import LoggerConfig from '../../domain/config/LoggerConfig'
 
 const appName = config.get<string>('appName')
 const { logLevel } = config.get<LoggerConfig>('logger')
