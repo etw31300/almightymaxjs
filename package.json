@@ -8,7 +8,7 @@
   "scripts": {
     "build": "npm run prepare && nest build",
     "start": "nest start",
-    "dev": "nodemon -r dotenv/config ./src/main.ts | bunyan",
+    "dev": "nodemon ./src/main.ts | bunyan",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "ts-standard",

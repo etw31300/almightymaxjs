@@ -2,7 +2,7 @@
   "verbose": true,
   "restartable": "rs",
   "execMap": {
-    "ts": "node -r ts-node/register"
+    "ts": "node -r ts-node/register -r dotenv/config"
   },
   "ignore": [
     ".git",
