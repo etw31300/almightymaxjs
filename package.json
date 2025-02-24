@@ -26,7 +26,7 @@
     "@discordjs/rest": "^2.4.3",
     "@discordjs/util": "^1.1.1",
     "@discordjs/voice": "^0.18.0",
-    "@discordjs/ws": "^1.2.1",
+    "@discordjs/ws": "^2.0.0",
     "@nestjs/common": "^11.0.10",
     "@nestjs/core": "^11.0.10",
     "@nestjs/microservices": "^11.0.10",
