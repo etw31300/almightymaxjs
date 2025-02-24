@@ -6,7 +6,6 @@ const textCommandProviders = [
 ]
 
 @Module({
-  providers: textCommandProviders,
-  exports: textCommandProviders
+  providers: textCommandProviders
 })
 export class TextCommandsModule {}

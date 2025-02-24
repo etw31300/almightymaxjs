@@ -7,6 +7,7 @@ import { AppModule } from './app.module'
 import Logger from './core/providers/logger.provider'
 
 const basePath = config.get<string>('basePath')
+const port = config.get<number>('port')
 const logger = new Logger()
 
 async function bootstrap (): Promise<void> {
@@ -19,7 +20,9 @@ async function bootstrap (): Promise<void> {
   )
   app.setGlobalPrefix(basePath)
 
-  await app.listen(8080)
+  await app.listen(port, () => {
+    logger.info(`Successfully listening on port ${port}`)
+  })
 }
 
 bootstrap().catch((err) => logger.error(err))

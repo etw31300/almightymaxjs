@@ -2,7 +2,7 @@ import { LoggerService } from '@nestjs/common'
 import bunyan from 'bunyan'
 import config from 'config'
 
-import LoggerConfig from '../../domain/config/LoggerConfig'
+import LoggerConfig from '~/domain/config/LoggerConfig'
 
 const appName = config.get<string>('appName')
 const { logLevel } = config.get<LoggerConfig>('logger')

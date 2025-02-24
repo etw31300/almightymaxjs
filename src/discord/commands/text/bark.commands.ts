@@ -1,7 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common'
-import Logger from '../../../core/providers/logger.provider'
 import { Context, TextCommand, TextCommandContext } from 'necord'
-import { Message, OmitPartialGroupDMChannel } from 'discord.js'
+
+import Logger from '~/core/providers/logger.provider'
+import { MessageResponse } from '~/domain/necord/message-response'
 
 @Injectable()
 export class BarkCommands {
@@ -15,7 +16,7 @@ export class BarkCommands {
   })
   public async bark (
     @Context() [message]: TextCommandContext
-  ): Promise<OmitPartialGroupDMChannel<Message<boolean>>> {
+  ): Promise<MessageResponse> {
     this.logger.info(`Bark requested by ${message.author.username}`)
     return await message.reply('BORK BORK!')
   }

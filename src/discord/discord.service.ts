@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common'
-import Logger from '../core/providers/logger.provider'
+import Logger from '~/core/providers/logger.provider'
 import { Context, ContextOf, On } from 'necord'
 
 @Injectable()
