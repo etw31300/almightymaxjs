@@ -4,4 +4,5 @@ export default interface MaxConfig {
   token: string
   debugGuildId: string
   maxUserId: string
+  lavalinkServerPassword: string
 }

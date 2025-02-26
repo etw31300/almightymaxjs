@@ -9,6 +9,7 @@ module.exports = {
     prefix: 'm!',
     token: process.env.ALMIGHTY_MAX_TOKEN,
     debugGuildId: process.env.DEVELOPMENT_GUILD_ID,
-    maxUserId: process.env.ALMIGHTY_MAX_USER_ID
+    maxUserId: process.env.ALMIGHTY_MAX_USER_ID,
+    lavalinkServerPassword: process.env.LAVALINK_SERVER_PASSWORD
   }
 }

@@ -38,3 +38,8 @@ lerna-debug.log*
 # Environment
 .env*
 !.env.schema
+
+# Lavalink
+lavalink/*
+!lavalink/Lavalink.jar
+!lavalink/application.yml
