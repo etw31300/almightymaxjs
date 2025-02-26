@@ -1,10 +1,8 @@
-import { Module, Provider } from '@nestjs/common'
+import { Module } from '@nestjs/common'
 import { GameCommandsModule } from './games/game-commands.module'
-
-const slashCommandProviders: Provider[] = []
 
 @Module({
   imports: [GameCommandsModule],
-  providers: slashCommandProviders
+  providers: []
 })
 export class SlashCommandsModule {}

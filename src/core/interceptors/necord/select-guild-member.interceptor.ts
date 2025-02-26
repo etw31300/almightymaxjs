@@ -1,30 +1,45 @@
 import { Injectable } from '@nestjs/common'
 import config from 'config'
-import { AutocompleteInteraction, Collection, GuildMember, Snowflake } from 'discord.js'
+import { ApplicationCommandOptionChoiceData, AutocompleteInteraction, Collection, GuildMember, Snowflake } from 'discord.js'
 import { AutocompleteInterceptor } from 'necord'
 
 import MaxConfig from '~/domain/config/MaxConfig'
-import { createGuildMemberFuzzySearch, FuseResult } from '~/utils/fuzzy-search'
+import { createGuildMemberFuzzySearch, FuseResult, isFuseResult } from '~/utils/fuzzy-search'
 
 const { maxUserId } = config.get<MaxConfig>('max')
 
 @Injectable()
 export class SelectGuildMemberInterceptor extends AutocompleteInterceptor {
-  public async transformOptions (interaction: AutocompleteInteraction): Promise<void> {
-    const guildMembers = await interaction.guild?.members.list({ cache: true, limit: 25 }) ?? new Collection<Snowflake, GuildMember>()
-    const guildMemberFuzzySearch = await createGuildMemberFuzzySearch(guildMembers)
+  private readonly mapGuildMemberOrFuseResultToOptionChoiceData = (guildMemberOrFuseResult: GuildMember | FuseResult<GuildMember>): ApplicationCommandOptionChoiceData => {
+    const guildMember = isFuseResult(guildMemberOrFuseResult)
+      ? guildMemberOrFuseResult.item
+      : guildMemberOrFuseResult
 
-    const excludeSelfAndBotsExceptMax = ({ item: guildMember }: FuseResult<GuildMember>): boolean => {
-      return guildMember.id !== interaction.user.id && (!guildMember.user.bot || guildMember.id === maxUserId)
+    return {
+      name: guildMember.displayName,
+      value: guildMember.id
+    }
+  }
+
+  public async transformOptions (interaction: AutocompleteInteraction): Promise<void> {
+    const filterSelfAndBotsExceptMax = (guildMember: GuildMember, guildMemberId: Snowflake): boolean =>
+      guildMemberId !== interaction.user.id && (!guildMember.user.bot || guildMemberId === maxUserId)
+
+    const allApplicableGuildMembers = (
+      await interaction.guild?.members.list({ cache: true, limit: 99 }) ?? new Collection<Snowflake, GuildMember>()
+    ).filter(filterSelfAndBotsExceptMax)
+
+    const guildMemberFuzzySearch = await createGuildMemberFuzzySearch(allApplicableGuildMembers)
+    const searchResults = guildMemberFuzzySearch.search(interaction.options.get('user')?.value?.toString() ?? '')
+
+    if (searchResults.length === 0) {
+      return await interaction.respond(
+        allApplicableGuildMembers.map(this.mapGuildMemberOrFuseResultToOptionChoiceData)
+      )
     }
 
     return await interaction.respond(
-      guildMemberFuzzySearch.search(interaction.options.get('user')?.value?.toString() ?? '')
-        .filter(excludeSelfAndBotsExceptMax)
-        .map(({ item: guildMember }) => ({
-          name: guildMember.displayName,
-          value: guildMember.id
-        }))
+      searchResults.map(this.mapGuildMemberOrFuseResultToOptionChoiceData)
     )
   }
 }

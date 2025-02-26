@@ -4,6 +4,6 @@
   "editor.acceptSuggestionOnEnter": "on",
   "typescript.preferences.quoteStyle": "single",
   "typescript.format.semicolons": "remove",
-  "typescript.preferences.importModuleSpecifier": "non-relative",
+  "typescript.preferences.importModuleSpecifier": "shortest",
   "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -24,3 +24,9 @@ export const createGuildMemberFuzzySearch = async (data: Collection<Snowflake, G
     keys: ['displayName'],
     ...options
   })
+
+export const isFuseResult = <T extends object | string | string[]>(data: unknown): data is FuseResult<T> =>
+  typeof data === 'object' &&
+    data !== null &&
+    'item' in data &&
+    'refIndex' in data

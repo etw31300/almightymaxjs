@@ -8,12 +8,12 @@ import { GameCommandsGroup } from '../../game.commands'
 import { GameOptions } from '../../game.options'
 
 @GameCommandsGroup()
+@UseInterceptors(SelectGuildMemberInterceptor)
 export class ChessGameCommand {
   constructor (
     @Inject(Logger) private readonly logger: Logger
   ) {}
 
-  @UseInterceptors(SelectGuildMemberInterceptor)
   @Subcommand({
     name: 'chess',
     description: 'Play Chess with Max or someone else!'
