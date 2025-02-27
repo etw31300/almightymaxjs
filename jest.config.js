@@ -9,5 +9,8 @@ module.exports = {
   coverageReporters: ['lcov', 'text'],
   transform: {
     '^.+\\.ts?$': ['ts-jest']
-  }
+  },
+  testPathIgnorePatterns: [
+    '<rootDir>/config/*'
+  ]
 }
