@@ -15,7 +15,7 @@
     "start:prod": "node dist/main",
     "lint": "ts-standard",
     "lint:fix": "ts-standard --fix",
-    "prepare": "husky install",
+    "prepare": "husky",
     "test": "jest"
   },
   "dependencies": {
