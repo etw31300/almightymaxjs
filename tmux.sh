@@ -24,7 +24,7 @@ fi
 tmux send-keys -t "$session_name.01" "npm run dev:lavalink" ENTER
 
 # wait for lavalink to be set up and ready for connections before running the nest service
-while ! nc -z localhost 2333 </dev/null; do sleep 5; done
+while ! nc -z localhost 2333 < /dev/null; do sleep 5; done
 
 # if we don't have pane 02 (nest), create it
 if ! has_pane 2; then

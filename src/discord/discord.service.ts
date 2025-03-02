@@ -39,8 +39,8 @@ export class DiscordService {
     this.logger.info(`Lavalink player created for guild ${player.guildId} in void channel ${String(player.voiceChannelId)}`)
   }
 
-  @OnLavalinkManager('playerDisconnect')
-  public onLavalinkManagerPlayerDisconnect (@Context() [player]: LavalinkManagerContextOf<'playerDisconnect'>): void {
-    this.logger.info(`Lavalink player disconnected from guild ${player.guildId}`)
+  @OnLavalinkManager('playerDestroy')
+  public onLavalinkManagerPlayerDestroy (@Context() [_player, reason]: LavalinkManagerContextOf<'playerDestroy'>): void {
+    this.logger.info(`Lavalink player destroyed due to: '${reason ?? 'Uknown reasons'}'`)
   }
 }
