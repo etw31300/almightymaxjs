@@ -5,7 +5,7 @@ export class GameOptions {
     name: 'user',
     description: 'The user to play a game with.',
     autocomplete: true,
-    required: false
+    required: true
   })
     userId!: string
 }
