@@ -24,6 +24,10 @@
       "jest",
       "node",
       "express"
+    ],
+    "typeRoots": [
+      "node_modules/@types",
+      "./types"
     ]
   },
   "ts-node": {

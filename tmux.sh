@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 session_name="almightymaxjs"
 
 # function to determine if we already have a pane open already

@@ -12,5 +12,12 @@ module.exports = {
   },
   testPathIgnorePatterns: [
     '<rootDir>/config/*'
+  ],
+  moduleNameMapper: {
+    '~/(.*)': '<rootDir>/src/$1',
+    'test/(.*)': '<rootDir>/test/$1'
+  },
+  setupFilesAfterEnv: [
+    '<rootDir>/jest.setup.ts'
   ]
 }
