@@ -27,7 +27,7 @@ export class MusicCommands {
     const searchQuery = searchStrings.join(' ')
     const { author: { displayName: authorName, id: authorId } } = message
 
-    this.logger.info(`User ${authorName} requested Max to play song from search query: '${searchQuery}'`)
+    this.logger.info(`User ${authorName} requested Max to play song from search query: '${searchQuery}' for guild ${String(message.guildId)}`)
 
     if (!this.isGuildMessage(message)) {
       return await message.reply('This command can only be invoked from a guild! BORK BORK!')
@@ -36,12 +36,12 @@ export class MusicCommands {
     const player = this.getPlayer(message)
     await this.connect(player)
 
-    if (player.paused) {
+    if (player.paused && searchQuery.length === 0) {
       await player.resume()
       return await message.react('thumbsup')
     }
 
-    if (searchQuery === '') {
+    if (searchQuery.length === 0) {
       return await message.reply(`It appears you forgot to provide a search query for this command. Please provide something for me next time ${authorName}! BORK BORK!`)
     }
 
@@ -62,6 +62,8 @@ export class MusicCommands {
   public async stopPlayback (
     @Context() [message]: TextCommandContext
   ): Promise<void> {
+    this.logger.info(`User ${message.author.displayName} requested Max to stop playing songs in guild ${String(message.guildId)}`)
+
     if (!this.isGuildMessage(message)) {
       await message.reply('This command can only be invoked from a guild! BORK BORK!')
       return

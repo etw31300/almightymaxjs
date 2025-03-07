@@ -1,7 +1,11 @@
+import { Client } from 'discord.js'
+import { LavalinkNode, Player } from 'lavalink-client'
+import { v4 as uuid } from 'uuid'
+
 import Logger from '~/core/providers/logger.provider'
 import { createTestingModuleWithCommonProviders } from 'test/utils/createTestingModuleWithCommonProviders'
+
 import { DiscordService } from './discord.service'
-import { Client } from 'discord.js'
 
 describe('DiscordService', () => {
   let discordService: DiscordService
@@ -59,21 +63,53 @@ describe('DiscordService', () => {
 
   describe('Lavalink Node Manager Events', () => {
     describe('onLavalinkNodeCreate', () => {
-      it.todo('')
+      it('should log out a node was created when emitted', () => {
+        const expectedNode = {
+          id: 'some-node-id'
+        } as unknown as LavalinkNode
+
+        expect(discordService.onLavalinkNodeCreate([expectedNode])).toBeUndefined()
+        expect(mockLogger.info).toHaveBeenCalledExactlyOnceWith(`Lavalink node ${expectedNode.id} created`)
+      })
     })
 
     describe('onLavalinkNodeConnect', () => {
-      it.todo('')
+      it('should log out a node was connected to successfully when emitted', () => {
+        const expectedNode = {
+          id: 'some-node-id'
+        } as unknown as LavalinkNode
+
+        expect(discordService.onLavalinkNodeConnect([expectedNode])).toBeUndefined()
+        expect(mockLogger.info).toHaveBeenCalledExactlyOnceWith(`Lavalink node ${expectedNode.id} connected successfully`)
+      })
     })
   })
 
   describe('Lavalink Manager Player Events', () => {
     describe('onLavalinkManagerPlayerCreate', () => {
-      it.todo('')
+      it('should log out the guild and voice channel the player was created for when emitted', () => {
+        const expectedPlayer = {
+          guildId: uuid(),
+          voiceChannelId: uuid()
+        } as unknown as Player
+
+        expect(discordService.onLavalinkManagerPlayerCreate([expectedPlayer])).toBeUndefined()
+        expect(mockLogger.info).toHaveBeenCalledExactlyOnceWith(`Lavalink player created for guild ${expectedPlayer.guildId} in void channel ${String(expectedPlayer.voiceChannelId)}`)
+      })
     })
 
     describe('onLavalinkManagerPlayerDestroy', () => {
-      it.todo('')
+      it('should log out the provided reason for the player being destroyed when emitted', () => {
+        const expectedReason = 'some reason'
+
+        expect(discordService.onLavalinkManagerPlayerDestroy([{} as unknown as Player, expectedReason])).toBeUndefined()
+        expect(mockLogger.info).toHaveBeenCalledExactlyOnceWith(`Lavalink player destroyed due to: '${expectedReason}'`)
+      })
+
+      it('should log out the default \'Unknown reasons\' as the destroyed reason when one isn\'t provided when emitted', () => {
+        expect(discordService.onLavalinkManagerPlayerDestroy([{} as unknown as Player])).toBeUndefined()
+        expect(mockLogger.info).toHaveBeenCalledExactlyOnceWith('Lavalink player destroyed due to: \'Unknown reasons\'')
+      })
     })
   })
 })

@@ -4,7 +4,8 @@ module.exports = {
   verbose: true,
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/**/*.ts'
+    'src/**/*.ts',
+    '!src/**/*.module.ts'
   ],
   coverageReporters: ['lcov', 'text'],
   transform: {

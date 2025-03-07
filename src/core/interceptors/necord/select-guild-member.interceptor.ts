@@ -29,10 +29,12 @@ export class SelectGuildMemberInterceptor extends AutocompleteInterceptor {
       await interaction.guild?.members.list({ cache: true, limit: 99 }) ?? new Collection<Snowflake, GuildMember>()
     ).filter(filterSelfAndBotsExceptMax)
 
-    const guildMemberFuzzySearch = await createGuildMemberFuzzySearch(allApplicableGuildMembers)
-    const searchResults = guildMemberFuzzySearch.search(interaction.options.get('user')?.value?.toString() ?? '')
+    const searchQuery = interaction.options.get('user')?.value?.toString() ?? ''
 
-    if (searchResults.length === 0) {
+    const guildMemberFuzzySearch = await createGuildMemberFuzzySearch(allApplicableGuildMembers)
+    const searchResults = guildMemberFuzzySearch.search(searchQuery)
+
+    if (searchQuery.length === 0) {
       return await interaction.respond(
         allApplicableGuildMembers.map(this.mapGuildMemberOrFuseResultToOptionChoiceData)
       )

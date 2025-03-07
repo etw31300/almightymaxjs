@@ -41,6 +41,6 @@ export class DiscordService {
 
   @OnLavalinkManager('playerDestroy')
   public onLavalinkManagerPlayerDestroy (@Context() [_player, reason]: LavalinkManagerContextOf<'playerDestroy'>): void {
-    this.logger.info(`Lavalink player destroyed due to: '${reason ?? 'Uknown reasons'}'`)
+    this.logger.info(`Lavalink player destroyed due to: '${reason ?? 'Unknown reasons'}'`)
   }
 }
