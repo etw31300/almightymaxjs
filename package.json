@@ -27,7 +27,7 @@
     "@discordjs/proxy": "^2.1.1",
     "@discordjs/rest": "^2.4.3",
     "@discordjs/util": "^1.1.1",
-    "@discordjs/voice": "^0.18.0",
+    "@discordjs/voice": "^0.19.0",
     "@discordjs/ws": "^2.0.0",
     "@necord/lavalink": "^1.1.4",
     "@nestjs/common": "^11.0.10",
