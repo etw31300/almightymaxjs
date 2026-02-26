@@ -35,7 +35,7 @@
     "@nestjs/microservices": "^11.0.10",
     "@nestjs/platform-express": "^11.0.10",
     "bunyan": "^1.8.15",
-    "config": "^3.3.12",
+    "config": "^4.0.0",
     "discord.js": "^14.18.0",
     "fuse.js": "^7.1.0",
     "lavalink-client": "^2.4.7",
