@@ -52,7 +52,7 @@
     "@nestjs/testing": "^11.0.11",
     "@tsconfig/node22": "^22.0.0",
     "@types/bunyan": "^1.8.11",
-    "@types/config": "^3.3.5",
+    "@types/config": "^4.0.0",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.4",
